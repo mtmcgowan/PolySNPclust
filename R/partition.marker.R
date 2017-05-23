@@ -32,7 +32,7 @@ partition.marker <- function(index, GSdata, mixmodout) {
   # Add the fixed partition to tthe x/y matrix
   marker$cluster <- partition
 
-  names(marker) <- c('Name', 'theta', 'r', 'partition')
+  names(marker) <- c('name', 'theta', 'r', 'partition')
   # Return the final matrix
   return(marker)
 }
