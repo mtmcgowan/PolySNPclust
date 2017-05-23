@@ -16,8 +16,8 @@ processGSexport <- function(exportpath = NULL) {
       nrows = 1,
       stringsAsFactors = F
     ))
-  theta_ind <- grep('.Theta', GSheader)
-  r_ind <- grep('.R', GSheader)
+  theta_ind <- grep('\\.Theta', GSheader)
+  r_ind <- grep('\\.R', GSheader)
   theta_table <-
     fread(
       exportpath,
