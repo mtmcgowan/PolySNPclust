@@ -66,7 +66,7 @@ make.training.data <- function(GSdata, mixmodout, marknum = 100, seed = NULL) {
   training_data$class <- NA
 
   cat('\\n Writing .csv table of marker statistics')
-  write.table(training_data, file = 'training.csv', row.names = F, quote = F, col.names = T, sep = ",")
+  write.table(training_data, file = 'training.csv', row.names = F, quote = F, col.names = T, sep = ",", na = '')
 
   cat('\\n Plotting markers')
   # Plotting the markers
