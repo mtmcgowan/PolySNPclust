@@ -20,7 +20,7 @@ plot.raw.clust <- function(index, GSdata, mixmodout) {
   marker <- partition.marker(index, GSdata, mixmodout)
 
   # Extract best model
-  clust <- extract.clust.ind(index, mixmodout)
+  clust <- extract.clust.index(index, mixmodout)
 
   # The ggplot scatter plot base
   marker_frame <- data.frame(marker$theta, marker$r, marker$partition)
