@@ -24,7 +24,7 @@ extract.clust.stats <- function(indices, GSdata, mixmodout) {
   clust_stats <- data.frame(matrix(NA, nrow = clustcount, ncol = 9))
   names(clust_stats) <- c('marker', 'cluster', 'prop', 'xcoord', 'ycoord', 'var1', 'var2', 'xvar', 'yvar')
 
-  lapply(indices, function(x) {
+  pblapply(indices, function(x) {
     marker <- partition.marker(x, GSdata, mixmodout)
     nc <- mixmodout[[x]][[1]][1]
     clust_temp <- data.frame(matrix(NA, nrow = nc, ncol = 7))
