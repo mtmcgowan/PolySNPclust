@@ -19,7 +19,7 @@ make.training.data <- function(GSdata, mixmodout, marknum = 100, seed = NULL) {
 
   setwd('training.data')
 
-  cat('\\n Sampling representative training data markers')
+  cat(paste('\n', 'Sampling representative training data markers', sep = ''))
   # Calculate how many clusters were identified for each marker
   clustnum <- unlist(lapply(mixmodout, function(x) {
     clust_stats <- unlist(x[[1]][1])
@@ -65,10 +65,10 @@ make.training.data <- function(GSdata, mixmodout, marknum = 100, seed = NULL) {
 
   training_data$class <- NA
 
-  cat('\\n Writing .csv table of marker statistics')
+  cat(paste('\n', 'Writing .csv table of marker statistics', sep = ''))
   write.table(training_data, file = 'training.csv', row.names = F, quote = F, col.names = T, sep = ",", na = '')
 
-  cat('\\n Plotting markers')
+  cat(paste('\n', 'Plotting markers', sep = ''))
   # Plotting the markers
   for (n in training_index) {
     marker_name <- mixmodout[[n]][[2]]
@@ -80,5 +80,5 @@ make.training.data <- function(GSdata, mixmodout, marknum = 100, seed = NULL) {
   # return to the parent directory
   setwd('..')
 
-  cat('\\n Completed creation of training data form and plots')
+  cat(paste('\n', 'Completed creation of training data form and plots', sep = ''))
 }
