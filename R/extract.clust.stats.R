@@ -6,7 +6,7 @@
 #' @param GSdata Processed GenomeStudio data
 #' @param mixmodout Clustering output from step 2
 #'
-#' @return A folder containing a partially populated .csv file and a nested folder of marker plots corresponding to the .csv file
+#' @return A
 #'
 #' @examples
 #'
@@ -24,7 +24,7 @@ extract.clust.stats <- function(indices, GSdata, mixmodout) {
   clust_stats <- data.frame(matrix(NA, nrow = clustcount, ncol = 9))
   names(clust_stats) <- c('marker', 'cluster', 'prop', 'xcoord', 'ycoord', 'var1', 'var2', 'xvar', 'yvar')
 
-  pblapply(indices, function(x) {
+  all_clust_stats <- pblapply(indices, function(x) {
     marker <- partition.marker(x, GSdata, mixmodout)
     nc <- mixmodout[[x]][[1]][1]
     clust_temp <- data.frame(matrix(NA, nrow = nc, ncol = 7))
@@ -50,4 +50,5 @@ extract.clust.stats <- function(indices, GSdata, mixmodout) {
     }
     return(clust_temp)
   })
+  return(all_clust_stats)
 }
