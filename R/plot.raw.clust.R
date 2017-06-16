@@ -1,6 +1,6 @@
-#' extract.clust.index.R
+#' @title extract.clust.index
 #'
-#' partitions a marker and plots points colored by clusters and surrounded by variance representative elipsoids and cluster centers
+#' @description partitions a marker and plots points colored by clusters and surrounded by variance representative elipsoids and cluster centers
 #'
 #' @param index The index of the marker to be extracted
 #' @param GSdata Processed GenomeStudio data, 2 item list of 'theta' and 'r' data frames
