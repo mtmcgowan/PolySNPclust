@@ -22,5 +22,6 @@ Imports:
   pROC,
   e1071,
   pbapply,
-  data.table
+  data.table,
+  parallel
 RoxygenNote: 6.0.1
