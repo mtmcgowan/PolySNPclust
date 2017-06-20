@@ -4,7 +4,7 @@
 \alias{train.noise.filter}
 \title{Train noise filter}
 \usage{
-train.noise.filter(trainingpath = "./training.data/training.csv",
+\method{train}{noise.filter}(trainingpath = "./training.data/training.csv",
   seed = NULL)
 }
 \arguments{

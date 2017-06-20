@@ -109,5 +109,6 @@ filter.clusters <- function(GSdata, mixmodout, model_gbm) {
   genotype_matrix$taxa <- names(GSdata[[1]])[-1]
   genotype_matrix <- genotype_matrix[, c(ncol(genotype_matrix), 1:ncol(genotype_matrix)-1)]
 
-  return(genotype_matrix)
+  return(list(genotype_matrix, clust_stats))
 }
+

@@ -4,7 +4,7 @@
 \alias{cluster.markers}
 \title{cluster.markers}
 \usage{
-cluster.markers(GSdata)
+\method{cluster}{markers}(GSdata)
 }
 \arguments{
 \item{GSdata}{Processed GenomeStudio data, 2 item list of 'theta' and 'r' data frames}
