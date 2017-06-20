@@ -13,7 +13,7 @@ Description: PolySNPclust calls genotypes from complex Infinium assay signals ge
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: 
+Depends: 
   foreach,
   car,
   RColorBrewer,
