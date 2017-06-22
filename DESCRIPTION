@@ -23,5 +23,6 @@ Depends:
   e1071,
   pbapply,
   data.table,
-  parallel
+  parallel,
+  Rmixmod
 RoxygenNote: 6.0.1
