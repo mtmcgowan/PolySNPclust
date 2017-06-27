@@ -77,7 +77,7 @@ cluster.markers <- function(GSdata) {
   cl <- makeCluster(no_cores, outfile = '')
 
   # Exporting the required functions and data.frames to each logic unit before running the parallel function
-  clusterExport(cl, list('theta_frame', 'r_frame', 'marker_list', "snp_extract", "marker_clust", "snp_mixclust", "mixmodCluster", 'mixmodGaussianModel', 'mixmodStrategy'))
+  clusterExport(cl, list('theta_frame', 'r_frame', 'marker_list', "snp_extract", "marker_clust", "snp_mixclust", "mixmodCluster", 'mixmodGaussianModel', 'mixmodStrategy'), envir=environment())
   ptm <- proc.time()
   parallel_out <- parLapply(
     cl, marker_list, marker_clust
