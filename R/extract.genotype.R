@@ -5,12 +5,9 @@
 #' @param markerlist A character vector of marker names
 #' @param GSdata A list of R and Theta data.frames
 #' @param mixmodout Rmixmod clustering results
-#' @clust_stats A data.frame containing statistics for all clusters
+#' @param clust_stats A data.frame containing statistics for all clusters
 #'
 #' @return A numerical matrix with rows = markers and columns = samples
-#'
-#' @examples
-#'
 
 
 extract.genotype <- function(markerlist, GSdata, mixmodout, clust_stats) {
