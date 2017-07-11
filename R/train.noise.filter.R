@@ -2,10 +2,10 @@
 #'
 #' Reads in completed training data and trains a gradient boosted model outputting prediction accuracy statistics
 #'
-#' @param filepath the path to the completed .csv file
+#' @param filepath the path to a completed .csv file output from the make.training.data() function that has been scored manually
 #'
 #' @return A gbm model object
-#' @examples
+#'
 
 train.noise.filter <- function(trainingpath = './training.data/training.csv', seed = NULL) {
   # Reading in the training data
