@@ -4,7 +4,7 @@
 \alias{plot.raw.clust}
 \title{extract.clust.index}
 \usage{
-\method{plot}{raw.clust}(index, GSdata, mixmodout)
+plot.raw.clust(index, GSdata, mixmodout)
 }
 \arguments{
 \item{index}{The index of the marker to be extracted}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/processGSexport.R
 \name{processGSexport}
 \alias{processGSexport}
-\title{Process Genome Studio Export}
+\title{Process Genome Studio export}
 \usage{
 processGSexport(exportpath = NULL)
 }
@@ -13,5 +13,5 @@ processGSexport(exportpath = NULL)
 A list of two data.frames. The first is a table of theta values and the second is a table of intensity values
 }
 \description{
-Processes a Genome Studio data export table to only import useful information (theta and R values) and ignores the rest
+Processes a Genome Studio data export table to only import useful information for clustering (theta and R values) and ignores the rest
 }
