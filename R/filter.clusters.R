@@ -96,8 +96,8 @@ filter.clusters <- function(GSdata, mixmodout, model_gbm) {
   cat('\n', 'Applying filters', '\n')
 
   # Use defined cutpoints to filter the markers
-  three_clust_filter_list <- three_clust_stats$marker[three_clust_mindist >= mindist_cp & three_clust_ratio >= ratio_cp]
-  two_clust_filter_list <- two_clust_stats$marker[two_clust_mindist >= mindist_cp2]
+  three_clust_filter_list <- three_clust_names[which(three_clust_mindist >= mindist_cp & three_clust_ratio >= ratio_cp)]
+  two_clust_filter_list <- two_clust_names[which(two_clust_mindist >= mindist_cp2)]
 
   # Combine both vectors into a single list
   markerlist <- c(two_clust_filter_list, three_clust_filter_list)
