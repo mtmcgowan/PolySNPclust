@@ -86,6 +86,6 @@ cluster.markers <- function(GSdata) {
 
   stopCluster(cl)
 
-  return(list(parallel_out, parallel_21_time))
+  return(parallel_out)
 
 }
