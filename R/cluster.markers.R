@@ -7,7 +7,7 @@
 #'
 #' @return An Rmixmod object containing the best cluster model results
 #'
-#' @example
+#' @example mixmodout <- cluster.markers(GSdata)
 
 
 cluster.markers <- function(GSdata) {
