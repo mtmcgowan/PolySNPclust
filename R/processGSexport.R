@@ -1,12 +1,11 @@
-#' Process Genome Studio Export
+#' Process Genome Studio export
 #'
-#' Processes a Genome Studio data export table to only import useful information (theta and R values) and ignores the rest
+#' Processes a Genome Studio data export table to only import useful information for clustering (theta and R values) and ignores the rest
 #'
 #' @param exportpath the path to the GS data export
 #'
 #' @return A list of two data.frames. The first is a table of theta values and the second is a table of intensity values
-#'
-#' @examples
+
 
 processGSexport <- function(exportpath = NULL) {
   GSheader <-
