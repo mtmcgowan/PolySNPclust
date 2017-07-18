@@ -33,5 +33,5 @@ processGSexport <- function(exportpath = NULL) {
       stringsAsFactors = F,
       select = c(2, r_ind)
     )
-  return(list(theta_table, r_table))
+  return(list(data.frame(theta_table), data.frame(r_table)))
 }
