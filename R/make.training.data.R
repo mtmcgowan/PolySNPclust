@@ -30,7 +30,7 @@ make.training.data <- function(GSdata, mixmodout, marknum = 100, seed = NULL) {
   clust_2 <- which(clustnum == 2)
   clust_3 <- which(clustnum == 3)
   clust_4 <- which(clustnum == 4)
-  clust_5 <- which(clustnum > 5)
+  clust_5 <- which(clustnum >= 5)
 
   # Randomly sampling within each category (fix seed if specified)
   if(!is.null(seed)){
