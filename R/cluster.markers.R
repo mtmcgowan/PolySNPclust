@@ -38,7 +38,7 @@ cluster.markers <- function(GSdata) {
   # A function that will take the extracted marker information and cluster using Rmixmod
   # 3 parameters: test_snp (output from snp_extract), model_list (a list of gaussian models to run), clustnum = (vector of # of clusters to test)
   # Output: a list of MixmodCluster objects for a particular marker (includes sub-optimal models)
-  snp_mixclust <- function(test_snp, model_list = c("Gaussian_pk_Lk_Ck", "Gaussian_pk_Lk_Bk"), clustnum = 1:8) {
+  snp_mixclust <- function(test_snp, model_list = c("Gaussian_pk_L_Ck", "Gaussian_pk_L_Bk"), clustnum = 1:8) {
     # Record which values are missing
     test_snp_raw <- test_snp
     na_remove <- unique(which(is.na(test_snp_raw), arr.ind = T)[,1])
@@ -48,7 +48,14 @@ cluster.markers <- function(GSdata) {
 
     # Check to see if any values have been marked for removal and re-cast the x-y matrix if needed (ifelse needed to prevent errors when nothing is marked for removal)
     if (length(all_remove) > 0) {test_snp <- test_snp_raw[-all_remove,]} else {test_snp <- test_snp_raw}
-    clust_results <- mixmodCluster(test_snp, nbCluster = clustnum, models = mixmodGaussianModel(listModels = model_list), criterion = 'ICL', strategy = mixmodStrategy(algo = c('EM', 'CEM'), initMethod = 'CEM', nbTry = 5))
+
+    clust_strategy <- mixmodStrategy(algo = c('EM', 'CEM'), nbTry = 20,
+                                     initMethod = "CEM",
+                                     nbTryInInit = 500, nbIterationInInit = 5,
+                                     nbIterationInAlgo = 500, epsilonInInit = 0.001,
+                                     epsilonInAlgo = 0.001, seed = NULL, parameter=NA,
+                                     labels=NA)
+    clust_results <- mixmodCluster(test_snp, nbCluster = clustnum, models = mixmodGaussianModel(listModels = model_list), criterion = 'ICL', strategy = clust_strategy)
     return(clust_results)
   }
 
