@@ -54,8 +54,8 @@ plot.raw.clust <- function(index, GSdata, mixmodout) {
 
   # Plotting the marker
   plot <- bplot + geom_point(size = 0.75) +
-    geom_path(data = ellipse_data, aes(x = x, y = y, group = clust), color = 'red', size = 0.5, inherit.aes = F) +
-    geom_point(data = center_data, aes(x = x, y = y), shape = 3, color = 'red', size = 2, stroke = 1, inherit.aes = F) +
+    geom_path(data = ellipse_data, aes(x = x, y = y, group = clust), color = 'red', size = 0.2, inherit.aes = F) +
+    geom_point(data = center_data, aes(x = x, y = y), shape = c(center_data[,3] + 48), color = 'red', size = 3, stroke = 1, inherit.aes = F) +
     colScale +
     ggtitle(paste(marker_name, '\t Index=', index))
   return(plot)
