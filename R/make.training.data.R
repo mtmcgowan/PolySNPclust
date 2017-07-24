@@ -36,22 +36,26 @@ make.training.data <- function(GSdata, mixmodout, marknum = 100, seed = NULL) {
   if(!is.null(seed)){
     set.seed(seed)
   }
-  clust_2_samp <- sample(clust_2, marknum)
+  marknum_check <- if (length(clust_2) < marknum) {length(clust_2)} else {marknum}
+  clust_2_samp <- sample(clust_2, marknum_check)
 
   if(!is.null(seed)){
     set.seed(seed)
   }
-  clust_3_samp <- sample(clust_3, marknum)
+  marknum_check <- if (length(clust_3) < marknum) {length(clust_3)} else {marknum}
+  clust_3_samp <- sample(clust_3, marknum_check)
 
   if(!is.null(seed)){
     set.seed(seed)
   }
-  clust_4_samp <- sample(clust_4, marknum)
+  marknum_check <- if (length(clust_4) < marknum) {length(clust_4)} else {marknum}
+  clust_4_samp <- sample(clust_4, marknum_check)
 
   if(!is.null(seed)){
     set.seed(seed)
   }
-  clust_5_samp <- sample(clust_5, marknum)
+  marknum_check <- if (length(clust_5) < marknum) {length(clust_5)} else {marknum}
+  clust_5_samp <- sample(clust_5, marknum_check)
 
   # Combine indices together
   training_index <- c(clust_2_samp, clust_3_samp, clust_4_samp, clust_5_samp)
