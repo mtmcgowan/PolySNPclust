@@ -35,23 +35,14 @@ cluster.markers <- function(GSdata) {
     return(test_snp)
   }
 
-  # A function that will take the extracted marker information and cluster using Rmixmod
+  # A function that will take a test_snp consisting of theta and R values and cluster using Rmixmod
   # 3 parameters: test_snp (output from snp_extract), model_list (a list of gaussian models to run), clustnum = (vector of # of clusters to test)
   # Output: a list of MixmodCluster objects for a particular marker (includes sub-optimal models)
   snp_mixclust <- function(test_snp, model_list = c("Gaussian_pk_L_Ck", "Gaussian_pk_L_Bk"), clustnum = 1:8) {
-    # Record which values are missing
-    test_snp_raw <- test_snp
-    na_remove <- unique(which(is.na(test_snp_raw), arr.ind = T)[,1])
-
-    # Combine all values marked for removal, collapse duplicates, and sort in ascending order
-    all_remove <- sort(unique(c(na_remove)))
-
-    # Check to see if any values have been marked for removal and re-cast the x-y matrix if needed (ifelse needed to prevent errors when nothing is marked for removal)
-    if (length(all_remove) > 0) {test_snp <- test_snp_raw[-all_remove,]} else {test_snp <- test_snp_raw}
 
     clust_strategy <- mixmodStrategy(algo = c('EM', 'CEM'), nbTry = 20,
                                      initMethod = "CEM",
-                                     nbTryInInit = 500, nbIterationInInit = 5,
+                                     nbTryInInit = 1000, nbIterationInInit = 5,
                                      nbIterationInAlgo = 500, epsilonInInit = 0.001,
                                      epsilonInAlgo = 0.001, seed = NULL, parameter=NA,
                                      labels=NA)
@@ -69,14 +60,28 @@ cluster.markers <- function(GSdata) {
 
     y <- snp_extract(x, theta_frame, r_frame)
 
-    na_remove <- unique(which(is.na(y), arr.ind = T)[,1])
-    all_remove <- sort(unique(c(na_remove)))
+    # Check for outliers using a box-plot strategy (anything outlide 1.5*IQR)
+    bplot <- boxplot.stats(y$y)
+    outliers <- which(y$y %in% bplot$out)
+    outliers_names <- row.names(y)[outliers]
 
-    clust_results <- snp_mixclust(y)
-    b <- clust_results['bestResult']
+    # Identify NA values
+    NA_samples <- row.names(y[is.na(y$x) | is.na(y$y),])
+
+    # Create a list of samples to remove
+    bad_samples <- c(outliers_names, NA_samples)
+    bad_samp_num <- length(bad_samples)
+
+    # Also create a vector of which indices are bad values
+    samp_rm <- which(row.names(y) %in% bad_samples)
+
+    # Remove bad samples
+    if (bad_samp_num > 0) {test_snp <- y[-which(row.names(y) %in% bad_samples),]} else {test_snp <- y}
+
+    clust_results <- snp_mixclust(test_snp)
+    model <- clust_results['bestResult']
     marker_name <- x
-    b <- append(b, marker_name)
-    b <- append(b, all_remove)
+    b <- list(model, marker_name, samp_rm)
     return(b)
   }
 
