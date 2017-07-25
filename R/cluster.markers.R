@@ -1,7 +1,6 @@
-#' cluster.markers
-#' @title cluster.markers
+#' Cluster markers in Parallel with Rmixmod
 #'
-#' @description Sets up a parallel backend and clusters each marker using mixture of gaussian models provided by the 'Rmixmod' package.
+#' Sets up a parallel backend and clusters each marker using mixture of gaussian models provided by the 'Rmixmod' package.
 #'
 #' @param GSdata Processed GenomeStudio data, 2 item list of 'theta' and 'r' data frames
 #'
