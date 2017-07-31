@@ -27,6 +27,12 @@ plot.raw.clust <- function(index, GSdata, mixmodout) {
   names(marker_frame) <- c('theta', 'r', 'cluster')
   bplot <- ggplot(marker_frame, aes(x = theta, y = r, color = factor(cluster)))
 
+  # Calculate max and min values observed
+  theta_min <- min(marker_frame$theta, na.rm = T)
+  theta_max <- max(marker_frame$theta, na.rm = T)
+  r_min <- min(marker_frame$r, na.rm = T)
+  r_max <- max(marker_frame$r, na.rm = T)
+
   # Calculating elipse data
   ellipse_data <- matrix(nrow = 0, ncol = 3)
   center_data <- matrix(nrow = 0, ncol = 3)
@@ -57,6 +63,7 @@ plot.raw.clust <- function(index, GSdata, mixmodout) {
     geom_path(data = ellipse_data, aes(x = x, y = y, group = clust), color = 'red', size = 0.2, inherit.aes = F) +
     geom_point(data = center_data, aes(x = x, y = y), shape = c(center_data[,3] + 48), color = 'red', size = 3, stroke = 1, inherit.aes = F) +
     colScale +
+    coord_cartesian(xlim = c((theta_min - 0.05), (theta_max + 0.05)), ylim = c((r_min - 0.05),(r_max + 0.05))) +
     ggtitle(paste(marker_name, '\t Index=', index))
   return(plot)
 }
