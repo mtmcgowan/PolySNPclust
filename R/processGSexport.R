@@ -41,6 +41,20 @@ processGSexport <- function(exportpath = NULL, transform = 'arcsin') {
       select = c(2, r_ind)
     )
 
+  # Adding a slight amount of noise to the data, but making sure to keep theta between 0 and 1
+  theta_table <- apply(theta_table[,2:ncol(theta_table)], c(1,2), function(x) {
+    if(is.na(x)) {
+      x
+    } else if(x<0.5) {
+      x + abs(rnorm(1, mean = 0, sd = 0.01))
+    } else if(x == 0.5) {
+      x + rnorm(1, mean = 0, sd = 0.01)
+    } else if (x>0.5) {
+      x - abs(rnorm(1, mean = 0, sd = 0.01))
+    } else {x}
+  })
+
+
   # Transformation functions
   asinTransform <- function(p) { asin(sqrt(p)) }
   logitTransform <- function(p) { log(p/(1-p)) }
@@ -48,6 +62,7 @@ processGSexport <- function(exportpath = NULL, transform = 'arcsin') {
   # Perform theta transformation if specified
   if (transform == 'asin') {theta_table[,2:ncol(theta_table)] <- asinTransform(theta_table[,2:ncol(theta_table)])}
   if (transform == 'logit') {theta_table[,2:ncol(theta_table)] <- logitTransform(theta_table[,2:ncol(theta_table)])}
+
 
   # Return both theta and R tables in a list
   return(list(data.frame(theta_table), data.frame(r_table)))
