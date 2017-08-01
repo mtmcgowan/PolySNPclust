@@ -9,9 +9,6 @@
 #'
 #' @return A ggplot scatterplot. Colors indicate cluster membership. Red lines indicate cluster center and relative rotation and variance.
 #'
-#' @examples
-#'
-#'
 
 plot.filter.clust <- function(index, GSdata, mixmodout, gbm_model) {
   # Extract marker name
