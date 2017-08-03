@@ -1,6 +1,6 @@
 #' plot.markers
 #'
-#' Plots clustering results for all markers in an index
+#' Plots clustering results for all markers in an index. The default is to plot all raw unfiltered clusters. However, filtering can be applied if a gbm model is provieded.
 #'
 #' @param index indices of the markers to be plotted
 #' @param GSdata Processed GenomeStudio data
