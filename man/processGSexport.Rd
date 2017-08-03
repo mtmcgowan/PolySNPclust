@@ -4,10 +4,12 @@
 \alias{processGSexport}
 \title{Process Genome Studio export}
 \usage{
-processGSexport(exportpath = NULL)
+processGSexport(exportpath = NULL, transform = "arcsin")
 }
 \arguments{
 \item{exportpath}{the path to the GS data export}
+
+\item{transform}{How to transform theta to control variance. (no transformation = 'none', logit transformation = 'logit', arcsine transformation (default) = 'arcsin')}
 }
 \value{
 A list of two data.frames. The first is a table of theta values and the second is a table of intensity values
