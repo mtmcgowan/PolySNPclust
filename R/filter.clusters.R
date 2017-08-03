@@ -8,7 +8,7 @@
 #' @examples
 #'
 
-filter.clusters <- function(GSdata, mixmodout, model_gbm) {
+filter.clusters <- function(GSdata, mixmodout, gbm_model) {
   cat('\n', 'Extracting cluster statistics for all markers', '\n')
   all_clust_stats <- extract.clust.stats(indices = 1:length(mixmodout), GSdata, mixmodout)
 
@@ -24,7 +24,7 @@ filter.clusters <- function(GSdata, mixmodout, model_gbm) {
 
   # Classify clusters
   cat('\n', 'Classifying clusters with gbm model', '\n')
-  clust_predict <- predict(object=model_gbm, clust_stats[,..predictor_names], type = 'raw')
+  clust_predict <- predict(object=gbm_model, clust_stats[,..predictor_names], type = 'raw')
   clust_stats$class <- clust_predict
   clust_stats$cat_bin <- as.logical(as.numeric(clust_predict)-1)
 
