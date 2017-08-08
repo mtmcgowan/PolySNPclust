@@ -9,7 +9,13 @@
 #' @example mixmodout <- cluster.markers(GSdata)
 
 
-cluster.markers <- function(GSdata) {
+cluster.markers <- function(GSdata,
+                            all = T,
+                            index = NULL,
+                            iteration = 10,
+                            model_list = c("Gaussian_pk_L_Ck", "Gaussian_pk_L_Bk"),
+                            out_y = F
+                            ) {
 
   # Convert GS list to individual tables (to make clustering functions simpler)
   theta_frame <- GSdata[[1]]
@@ -19,7 +25,11 @@ cluster.markers <- function(GSdata) {
   rownames(r_frame) <- unlist(GSdata[[2]][,1])
 
   # Extracting the list of markers to iterate over
-  marker_list <- theta_frame$Name
+  if (all == F) {
+    marker_list <- theta_frame$Name[index]
+  } else {
+    marker_list <- theta_frame$Name
+  }
 
   # Initializing sub-functions
   # A function for extracting marker information
@@ -37,9 +47,8 @@ cluster.markers <- function(GSdata) {
   # A function that will take a test_snp consisting of theta and R values and cluster using Rmixmod
   # 3 parameters: test_snp (output from snp_extract), model_list (a list of gaussian models to run), clustnum = (vector of # of clusters to test)
   # Output: a list of MixmodCluster objects for a particular marker (includes sub-optimal models)
-  snp_mixclust <- function(test_snp, model_list = c("Gaussian_pk_L_Ck", "Gaussian_pk_L_Bk"), clustnum = 1:8) {
-
-    clust_strategy <- mixmodStrategy(algo = c('EM', 'CEM'), nbTry = 20,
+  snp_mixclust <- function(test_snp, model_list, clustnum = 1:8, iteration) {
+    clust_strategy <- mixmodStrategy(algo = c('EM', 'CEM'), nbTry = iteration,
                                      initMethod = "CEM",
                                      nbTryInInit = 1000, nbIterationInInit = 5,
                                      nbIterationInAlgo = 500, epsilonInInit = 0.001,
@@ -60,9 +69,13 @@ cluster.markers <- function(GSdata) {
     y <- snp_extract(x, theta_frame, r_frame)
 
     # Check for outliers using a box-plot strategy (anything outlide 1.5*IQR)
+    if (out_y == T) {
     bplot <- boxplot.stats(y$y)
     outliers <- which(y$y %in% bplot$out)
     outliers_names <- row.names(y)[outliers]
+    } else {
+      outliers_names <- vector(mode = 'character', length = 0)
+    }
 
     # Identify NA values
     NA_samples <- row.names(y[is.na(y$x) | is.na(y$y),])
@@ -77,7 +90,7 @@ cluster.markers <- function(GSdata) {
     # Remove bad samples
     if (bad_samp_num > 0) {test_snp <- y[-which(row.names(y) %in% bad_samples),]} else {test_snp <- y}
 
-    clust_results <- snp_mixclust(test_snp)
+    clust_results <- snp_mixclust(test_snp, model_list, iteration = iteration)
     model <- clust_results['bestResult']
     marker_name <- x
     b <- list(model, marker_name, samp_rm)
@@ -89,7 +102,19 @@ cluster.markers <- function(GSdata) {
   cl <- makeCluster(no_cores, outfile = '')
 
   # Exporting the required functions and data.frames to each logic unit before running the parallel function
-  clusterExport(cl, list('theta_frame', 'r_frame', 'marker_list', "snp_extract", "marker_clust", "snp_mixclust", "mixmodCluster", 'mixmodGaussianModel', 'mixmodStrategy'), envir=environment())
+  clusterExport(cl, list('theta_frame',
+                         'r_frame',
+                         'marker_list',
+                         "snp_extract",
+                         "model_list",
+                         "iteration",
+                         "out_y",
+                         "marker_clust",
+                         "snp_mixclust",
+                         "mixmodCluster",
+                         'mixmodGaussianModel',
+                         'mixmodStrategy'),
+                envir=environment())
   ptm <- proc.time()
   parallel_out <- parLapply(
     cl, marker_list, marker_clust
