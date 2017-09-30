@@ -29,7 +29,7 @@ The easiest way to learn to use PolySNPclust is to go through the tutorial provi
 
 Depending on your population size and marker number, it may be useful to use a high-performance cluster to speed up the clustering step. Here is an example of how this was done for a cluster using the SLURM job scheduler:
 
-LINK HERE
+LINK HERE (Not implemented yet)
 
 ## Getting help
 
