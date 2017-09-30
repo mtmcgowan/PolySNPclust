@@ -25,7 +25,7 @@ devtools::install_github("mtmcgowan/PolySNPclust")
 ```
 ## Usage
 The easiest way to learn to use PolySNPclust is to go through the tutorial provided here:
-(https://github.com/mtmcgowan/PolySNPclust/wiki/Guided-Tutorial "Guided Tutorial")
+[Guided Tutorial](https://github.com/mtmcgowan/PolySNPclust/wiki/Guided-Tutorial)
 
 Depending on your population size and marker number, it may be useful to use a high-performance cluster to speed up the clustering step. Here is an example of how this was done for a cluster using the SLURM job scheduler:
 
